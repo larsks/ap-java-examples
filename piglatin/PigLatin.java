@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class PigLatin {
+	private final Set<String> vowels = new HashSet<>(Arrays.asList("a", "e", "i", "o", "u"));
+
 	public String convertWord(String word) {
 		String result;
 
@@ -18,24 +20,14 @@ public class PigLatin {
 	}
 
 	public boolean isLetterAVowel(String letter) {
-		String[] vowels = {"a", "e", "i", "o", "u"};
-
-		for (String ch: vowels) {
-			if (letter.equals(ch)) {
-				return true;
-			}
-		}
-		return false;
+		return vowels.contains(letter);
 	}
 
 	public String convertPhrase(String phrase) {
-		ArrayList<String> converted = new ArrayList<String>();
+		String [] converted = new String[0];
 
 		if (phrase != null && phrase.length() != 0) {
-			String[] words = phrase.split(" ");
-			for (String word: words) {
-				converted.add(convertWord(word));
-			}
+			converted = Arrays.asList(phrase.split(" ")).stream().map((word) -> convertWord(word)).toArray(String[]::new);
 		}
 
 		return String.join(" ", converted);
