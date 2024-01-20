@@ -22,11 +22,27 @@ public class Array2DMultiples {
    * returns the new two-dimensional array with no duplicate rows
    */
   public static int[][] eliminateDuplicateRows(int[][] arrWithDups) {
+    return eliminateDuplicateRowsIterative(arrWithDups);
+  }
+
+  public static int[][] eliminateDuplicateRowsStream(int[][] arrWithDups) {
     Set<Integer> seen = new HashSet<>();
 
     return Arrays
       .stream(arrWithDups)
       .filter(x -> seen.add(x[0]))
       .toArray(int[][]::new);
+  }
+
+  public static int[][] eliminateDuplicateRowsIterative(int[][] arrWithDups) {
+    Set<Integer> seen = new HashSet<>();
+    ArrayList<int[]> cleaned = new ArrayList<>();
+
+    for (int i = 0; i < arrWithDups.length; i++) {
+      if (seen.add(arrWithDups[i][0])) {
+        cleaned.add(arrWithDups[i]);
+      }
+    }
+    return cleaned.toArray(int[][]::new);
   }
 }
